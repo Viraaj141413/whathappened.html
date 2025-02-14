@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Global Metrics Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #2c3e50;
+            color: white;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #header {
+            font-size: 1.8em;
+            text-align: center;
+            margin-top: 20px;
+            color: #FFD700;
+            position: sticky;
+            top: 0;
+            background-color: #2c3e50;
+            padding: 10px;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .metric-header {
+            font-size: 1.4em;
+            color: #FFD700;
+            margin-bottom: 8px;
+        }
+
+        .metric-description {
+            font-size: 1em;
+            color: #cccccc;
+            margin-bottom: 10px;
+        }
+
+        .metric-data {
+            font-size: 1.3em;
+            color: #ffffff;
+        }
+
+        .metric {
+            background-color: #34495e;
+            border-radius: 8px;
+            padding: 10px;
+            margin: 10px 0;
+            width: 90%;
+            text-align: center;
+        }
+
+        #metrics {
+            width: 90%;
+            max-width: 800px;
+            display: flex;
+            flex-direction: column;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 600px) {
+            #header {
+                font-size: 1.5em;
+            }
+
+            .metric-header {
+                font-size: 1.2em;
+            }
+
+            .metric-description {
+                font-size: 0.9em;
+            }
+
+            .metric-data {
+                font-size: 1.1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="header">You have been on this page for <span id="timer">0</span> seconds, and in that time, the stuff below has happened.</div>
+
+    <div id="metrics">
+        <!-- Tectonic Plate Movement -->
+        <div class="metric" id="tectonicPlateMovement">
+            <div class="metric-header">🌍 Tectonic Plate Movement</div>
+            <div class="metric-description">Real-Time Rate: 0.6 to 1.5 nanometers per second</div>
+            <div class="metric-data" id="tectonicPlateMovement-data">Tectonic Plate Movement: 0.00 nm</div>
+        </div>
+
+        <!-- Sea Level Rise -->
+        <div class="metric" id="seaLevelRise">
+            <div class="metric-header">🌊 Sea Level Rise</div>
+            <div class="metric-description">Real-Time Rate: 0.000117 millimeters per second</div>
+            <div class="metric-data" id="seaLevelRise-data">Sea Level Rise: 0.00 mm</div>
+        </div>
+
+        <!-- Global Temperature Increase -->
+        <div class="metric" id="globalTemperatureIncrease">
+            <div class="metric-header">🔥 Global Temperature Increase</div>
+            <div class="metric-description">Real-Time Rate: 0.00000057°C per second</div>
+            <div class="metric-data" id="globalTemperatureIncrease-data">Global Temperature Increase: 0.00°C</div>
+        </div>
+
+        <!-- Deforestation Rate -->
+        <div class="metric" id="deforestationRate">
+            <div class="metric-header">🌿 Deforestation Rate</div>
+            <div class="metric-description">Real-Time Rate: 0.03 hectares per second</div>
+            <div class="metric-data" id="deforestationRate-data">Deforestation Rate: 0.00 hectares</div>
+        </div>
+
+        <!-- Plastic Waste in Oceans -->
+        <div class="metric" id="plasticWasteInOceans">
+            <div class="metric-header">🗑 Plastic Waste in Oceans</div>
+            <div class="metric-description">Real-Time Rate: 0.35 tons per second</div>
+            <div class="metric-data" id="plasticWasteInOceans-data">Plastic Waste: 0.00 tons</div>
+        </div>
+
+        <!-- CO₂ Levels Increase -->
+        <div class="metric" id="co2LevelsIncrease">
+            <div class="metric-header">💨 CO₂ Levels Increase</div>
+            <div class="metric-description">Real-Time Rate: 0.000076 ppm per second</div>
+            <div class="metric-data" id="co2LevelsIncrease-data">CO₂ Levels: 0.00 ppm</div>
+        </div>
+
+        <!-- Cigarettes Smoked -->
+        <div class="metric" id="cigarettesSmoked">
+            <div class="metric-header">🚬 Cigarettes Smoked</div>
+            <div class="metric-description">Real-Time Rate: 180 cigarettes per second</div>
+            <div class="metric-data" id="cigarettesSmoked-data">Cigarettes Smoked: 0</div>
+        </div>
+
+        <!-- Births per Second -->
+        <div class="metric" id="birthsPerSecond">
+            <div class="metric-header">👶 Births per Second</div>
+            <div class="metric-description">Real-Time Rate: 4.3 births per second</div>
+            <div class="metric-data" id="birthsPerSecond-data">Births: 0</div>
+        </div>
+
+        <!-- Deaths per Second -->
+        <div class="metric" id="deathsPerSecond">
+            <div class="metric-header">⚰️ Deaths per Second</div>
+            <div class="metric-description">Real-Time Rate: 1.8 deaths per second</div>
+            <div class="metric-data" id="deathsPerSecond-data">Deaths: 0</div>
+        </div>
+
+        <!-- Volcanic Eruptions -->
+        <div class="metric" id="volcanicEruptions">
+            <div class="metric-header">🌋 Volcanic Eruptions</div>
+            <div class="metric-description">Real-Time Rate: 0.0002 eruptions per second</div>
+            <div class="metric-data" id="volcanicEruptions-data">Volcanic Eruptions: 0</div>
+        </div>
+
+        <!-- Natural Disasters -->
+        <div class="metric" id="naturalDisasters">
+            <div class="metric-header">🌪️ Natural Disasters</div>
+            <div class="metric-description">Real-Time Rate: 0.0014 disasters per second</div>
+            <div class="metric-data" id="naturalDisasters-data">Natural Disasters: 0</div>
+        </div>
+
+        <!-- Species Extinction -->
+        <div class="metric" id="speciesExtinction">
+            <div class="metric-header">🐝 Species Extinction</div>
+            <div class="metric-description">Real-Time Rate: 0.0017 species per second</div>
+            <div class="metric-data" id="speciesExtinction-data">Species Extinction: 0</div>
+        </div>
+
+        <!-- Cars Produced -->
+        <div class="metric" id="carsProduced">
+            <div class="metric-header">🚗 Cars Produced</div>
+            <div class="metric-description">Real-Time Rate: 2.2 cars per second</div>
+            <div class="metric-data" id="carsProduced-data">Cars Produced: 0</div>
+        </div>
+
+        <!-- Online Purchases -->
+        <div class="metric" id="onlinePurchases">
+            <div class="metric-header">🛒 Online Purchases</div>
+            <div class="metric-description">Real-Time Rate: 20,000 purchases per second</div>
+            <div class="metric-data" id="onlinePurchases-data">Online Purchases: 0</div>
+        </div>
+
+        <!-- Smartphones Sold -->
+        <div class="metric" id="smartphonesSold">
+            <div class="metric-header">📱 Smartphones Sold</div>
+            <div class="metric-description">Real-Time Rate: 44 smartphones per second</div>
+            <div class="metric-data" id="smartphonesSold-data">Smartphones Sold: 0</div>
+        </div>
+
+        <!-- Food Waste -->
+        <div class="metric" id="foodWaste">
+            <div class="metric-header">🌾 Food Waste</div>
+            <div class="metric-description">Real-Time Rate: 41 tons per second</div>
+            <div class="metric-data" id="foodWaste-data">Food Waste: 0.00 tons</div>
+        </div>
+
+        <!-- Global GDP Growth -->
+        <div class="metric" id="globalGDPGrowth">
+            <div class="metric-header">💸 Global GDP Growth</div>
+            <div class="metric-description">Real-Time Rate: $85,600 per second</div>
+            <div class="metric-data" id="globalGDPGrowth-data">Global GDP Growth: $0.00</div>
+        </div>
+
+        <!-- Carbon Emissions -->
+        <div class="metric" id="carbonEmissions">
+            <div class="metric-header">🏭 Carbon Emissions</div>
+            <div class="metric-description">Real-Time Rate: 1,173 tons per second</div>
+            <div class="metric-data" id="carbonEmissions-data">Carbon Emissions: 0.00 tons</div>
+        </div>
+
+        <!-- Internet Users -->
+        <div class="metric" id="internetUsers">
+            <div class="metric-header">🌐 Internet Users</div>
+            <div class="metric-description">Real-Time Rate: 11.6 new users per second</div>
+            <div class="metric-data" id="internetUsers-data">Internet Users: 0</div>
+        </div>
+
+        <!-- Emails Sent -->
+        <div class="metric" id="emailsSent">
+            <div class="metric-header">📧 Emails Sent</div>
+            <div class="metric-description">Real-Time Rate: 3.8 million emails per second</div>
+            <div class="metric-data" id="emailsSent-data">Emails Sent: 0</div>
+        </div>
+
+        <!-- Space Debris -->
+        <div class="metric" id="spaceDebris">
+            <div class="metric-header">🚀 Space Debris</div>
+            <div class="metric-description">Real-Time Rate: 0.003 pieces per second</div>
+            <div class="metric-data" id="spaceDebris-data">Space Debris: 0</div>
+        </div>
+
+        <!-- Urbanization -->
+        <div class="metric" id="urbanization">
+            <div class="metric-header">🏙️ Urbanization</div>
+            <div class="metric-description">Real-Time Rate: 2.4 people per second</div>
+            <div class="metric-data" id="urbanization-data">Urbanization: 0</div>
+        </div>
+
+        <!-- Access to Clean Water -->
+        <div class="metric" id="accessToCleanWater">
+            <div class="metric-header">🚰 Access to Clean Water</div>
+            <div class="metric-description">Real-Time Rate: 0.1 person per second</div>
+            <div class="metric-data" id="accessToCleanWater-data">Access to Clean Water: 0</div>
+        </div>
+
+        <!-- Healthcare Spending -->
+        <div class="metric" id="healthcareSpending">
+            <div class="metric-header">🏥 Healthcare Spending</div>
+            <div class="metric-description">Real-Time Rate: $263,000 per second</div>
+            <div class="metric-data" id="healthcareSpending-data">Healthcare Spending: $0.00</div>
+        </div>
+
+        <!-- Literacy Rate Improvement -->
+        <div class="metric" id="literacyRateImprovement">
+            <div class="metric-header">🎓 Literacy Rate Improvement</div>
+            <div class="metric-description">Real-Time Rate: 0.5 people per second</div>
+            <div class="metric-data" id="literacyRateImprovement-data">Literacy Rate Improvement: 0</div>
+        </div>
+
+        <!-- Bicycles Produced -->
+        <div class="metric" id="bicyclesProduced">
+            <div class="metric-header">🚴 Bicycles Produced</div>
+            <div class="metric-description">Real-Time Rate: 3.2 bicycles per second</div>
+            <div class="metric-data" id="bicyclesProduced-data">Bicycles Produced: 0</div>
+        </div>
+
+        <!-- Chocolate Consumed -->
+        <div class="metric" id="chocolateConsumed">
+            <div class="metric-header">🍫 Chocolate Consumed</div>
+            <div class="metric-description">Real-Time Rate: 244 kilograms per second</div>
+            <div class="metric-data" id="chocolateConsumed-data">Chocolate Consumed: 0.00 kg</div>
+        </div>
+
+        <!-- Fish Caught -->
+        <div class="metric" id="fishCaught">
+            <div class="metric-header">🐟 Fish Caught</div>
+            <div class="metric-description">Real-Time Rate: 5.7 tons per second</div>
+            <div class="metric-data" id="fishCaught-data">Fish Caught: 0.00 tons</div>
+        </div>
+
+        <!-- Showers Taken -->
+        <div class="metric" id="showersTaken">
+            <div class="metric-header">🚿 Showers Taken</div>
+            <div class="metric-description">Real-Time Rate: 185,000 showers per second</div>
+            <div class="metric-data" id="showersTaken-data">Showers Taken: 0</div>
+        </div>
+
+        <!-- Music Streams -->
+        <div class="metric" id="musicStreams">
+            <div class="metric-header">🎵 Music Streams</div>
+            <div class="metric-description">Real-Time Rate: 82,000 songs per second</div>
+            <div class="metric-data" id="musicStreams-data">Music Streams: 0</div>
+        </div>
+
+        <!-- Social Media Posts -->
+        <div class="metric" id="socialMediaPosts">
+            <div class="metric-header">📱 Social Media Posts</div>
+            <div class="metric-description">Real-Time Rate: 8,000 posts per second</div>
+            <div class="metric-data" id="socialMediaPosts-data">Social Media Posts: 0</div>
+        </div>
+
+        <!-- Energy Consumption -->
+        <div class="metric" id="energyConsumption">
+            <div class="metric-header">⚡ Energy Consumption</div>
+            <div class="metric-description">Real-Time Rate: 790,000 kWh per second</div>
+            <div class="metric-data" id="energyConsumption-data">Energy Consumption: 0.00 kWh</div>
+        </div>
+    </div>
+
+    <script>
+        let startTime = Date.now();
+        let timerElement = document.getElementById('timer');
+
+        function updateMetrics() {
+            let timeElapsed = (Date.now() - startTime) / 1000;
+
+            // Update timer
+            timerElement.innerText = timeElapsed.toFixed(2);
+
+            // Update all metrics
+            document.getElementById('tectonicPlateMovement-data').innerText = `Tectonic Plate Movement: ${(timeElapsed * 1.5).toFixed(2)} nm`;
+            document.getElementById('seaLevelRise-data').innerText = `Sea Level Rise: ${(timeElapsed * 0.000117).toFixed(5)} mm`;
+            document.getElementById('globalTemperatureIncrease-data').innerText = `Global Temperature Increase: ${(timeElapsed * 0.00000057).toFixed(8)}°C`;
+            document.getElementById('deforestationRate-data').innerText = `Deforestation Rate: ${(timeElapsed * 0.03).toFixed(2)} hectares`;
+            document.getElementById('plasticWasteInOceans-data').innerText = `Plastic Waste: ${(timeElapsed * 0.35).toFixed(2)} tons`;
+            document.getElementById('co2LevelsIncrease-data').innerText = `CO₂ Levels: ${(timeElapsed * 0.000076).toFixed(6)} ppm`;
+            document.getElementById('cigarettesSmoked-data').innerText = `Cigarettes Smoked: ${Math.floor(timeElapsed * 180)}`;
+            document.getElementById('birthsPerSecond-data').innerText = `Births: ${Math.floor(timeElapsed * 4.3)}`;
+            document.getElementById('deathsPerSecond-data').innerText = `Deaths: ${Math.floor(timeElapsed * 1.8)}`;
+            document.getElementById('volcanicEruptions-data').innerText = `Volcanic Eruptions: ${Math.floor(timeElapsed * 0.0002)}`;
+            document.getElementById('naturalDisasters-data').innerText = `Natural Disasters: ${Math.floor(timeElapsed * 0.0014)}`;
+            document.getElementById('speciesExtinction-data').innerText = `Species Extinction: ${Math.floor(timeElapsed * 0.0017)}`;
+            document.getElementById('carsProduced-data').innerText = `Cars Produced: ${Math.floor(timeElapsed * 2.2)}`;
+            document.getElementById('onlinePurchases-data').innerText = `Online Purchases: ${Math.floor(timeElapsed * 20000)}`;
+            document.getElementById('smartphonesSold-data').innerText = `Smartphones Sold: ${Math.floor(timeElapsed * 44)}`;
+            document.getElementById('foodWaste-data').innerText = `Food Waste: ${(timeElapsed * 41).toFixed(2)} tons`;
+            document.getElementById('globalGDPGrowth-data').innerText = `Global GDP Growth: $${(timeElapsed * 85600).toFixed(2)}`;
+            document.getElementById('carbonEmissions-data').innerText = `Carbon Emissions: ${(timeElapsed * 1173).toFixed(2)} tons`;
+            document.getElementById('internetUsers-data').innerText = `Internet Users: ${Math.floor(timeElapsed * 11.6)}`;
+            document.getElementById('emailsSent-data').innerText = `Emails Sent: ${Math.floor(timeElapsed * 3800000)}`;
+            document.getElementById('spaceDebris-data').innerText = `Space Debris: ${Math.floor(timeElapsed * 0.003)}`;
+            document.getElementById('urbanization-data').innerText = `Urbanization: ${Math.floor(timeElapsed * 2.4)}`;
+            document.getElementById('accessToCleanWater-data').innerText = `Access to Clean Water: ${Math.floor(timeElapsed * 0.1)}`;
+            document.getElementById('healthcareSpending-data').innerText = `Healthcare Spending: $${(timeElapsed * 263000).toFixed(2)}`;
+            document.getElementById('literacyRateImprovement-data').innerText = `Literacy Rate Improvement: ${Math.floor(timeElapsed * 0.5)}`;
+            document.getElementById('bicyclesProduced-data').innerText = `Bicycles Produced: ${Math.floor(timeElapsed * 3.2)}`;
+            document.getElementById('chocolateConsumed-data').innerText = `Chocolate Consumed: ${(timeElapsed * 244).toFixed(2)} kg`;
+            document.getElementById('fishCaught-data').innerText = `Fish Caught: ${(timeElapsed * 5.7).toFixed(2)} tons`;
+            document.getElementById('showersTaken-data').innerText = `Showers Taken: ${Math.floor(timeElapsed * 185000)}`;
+            document.getElementById('musicStreams-data').innerText = `Music Streams: ${Math.floor(timeElapsed * 82000)}`;
+            document.getElementById('socialMediaPosts-data').innerText = `Social Media Posts: ${Math.floor(timeElapsed * 8000)}`;
+            document.getElementById('energyConsumption-data').innerText = `Energy Consumption: ${(timeElapsed * 790000).toFixed(2)} kWh`;
+        }
+
+        setInterval(updateMetrics, 100);
+    </script>
+</body>
+</html>
